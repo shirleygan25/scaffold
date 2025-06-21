@@ -9,29 +9,16 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - install:
+	      pip install --upgrade pip &&\ pip install -r requirements.txt
 
-      - name: Set up Python
-        uses: actions/setup-python@v3
-        with:
-          python-version: "3.9"
+      - test:
+        python -m pytest -vv test_hello.py
 
-      - name: Cache dependencies
-        uses: actions/cache@v3
-        with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-pip-
+      - format:
+        black *.py
 
-      - name: Install dependencies
-        run: pip install black
+      - lint:
+      	pylint --disable=R,C hello.py
 
-      - name: Lint
-        run: make lint
-
-      - name: Test with Pytest
-        run: make test
-
-      - name: Format code with Python black
-        run: make format
+      - all: install lint test
