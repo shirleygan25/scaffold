@@ -9,17 +9,19 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - install:
-	pip install --upgrade pip &&\
-       	pip install -r requirements.txt
+     - name: Install dependencies
+    	run: |
+     	 pip install --upgrade pip
+	 pip install -r requirements.txt
 
-      - test:
-        python -m pytest -vv test_hello.py
+  - name: Run tests
+    run: |
+      python -m pytest -vv test_hello.py
 
-      - format:
-        black *.py
+  - name: Format code with black
+    run: |
+      black *.py
 
-      - lint:
-      	pylint --disable=R,C hello.py
-
-      - all: install lint test
+  - name: Lint with pylint
+    run: |
+      pylint --disable=R,C hello.py
