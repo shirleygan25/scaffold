@@ -20,8 +20,17 @@ jobs:
         
     - name: Install 
       run: |
-        pip install black
+        make install
    
     - name: Lint
       run: | 
-        black . --check
+        make lint
+
+    - name: Test with Pytest
+      run: |
+        make test
+
+    - name: Format code with Python black
+      run: |
+        make format
+    
