@@ -2,7 +2,7 @@
 
 # GitHub Actions Workflow YAML
 
-name: CI
+name: CI python 3 A
 on: [push]
 
 jobs:
