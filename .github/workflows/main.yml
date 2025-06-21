@@ -25,7 +25,7 @@ jobs:
             ${{ runner.os }}-pip-
 
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: pip install black
 
       - name: Lint
         run: make lint
